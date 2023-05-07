@@ -11,7 +11,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AdminOrderController;
-
+use App\Http\Controllers\Admin\ChartController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\WishlistController;
@@ -71,6 +71,11 @@ Route::prefix('/admin')->middleware(['auth', 'isAdmin'])->group(function(){
     //setting
     Route::get('settings', [SettingController::class, 'index']);
     Route::post('settings', [SettingController::class, 'store']);
+    //chart
+    Route::controller(ChartController::class)->group(function () {
+        Route::get('/statistic', 'index');
+        Route::get('/statistic/chart', 'chart');
+    });
     //category
     Route::controller(CategoryController::class)->group(function () {
         Route::get('/category', 'index')->name('category');

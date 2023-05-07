@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 25, 2023 at 04:32 PM
+-- Generation Time: May 07, 2023 at 09:18 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -184,7 +184,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (21, '2023_03_05_172528_create_order_items_table', 12),
 (23, '2023_03_22_000836_create_settings_table', 13),
 (24, '2023_04_02_103710_create_user_details_table', 14),
-(25, '2023_04_03_003103_create_jobs_table', 15);
+(25, '2023_04_03_003103_create_jobs_table', 15),
+(26, '2023_05_07_175546_add_total_to_orders_table', 16);
 
 -- --------------------------------------------------------
 
@@ -205,20 +206,21 @@ CREATE TABLE `orders` (
   `payment_mode` varchar(255) NOT NULL,
   `payment_id` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `total` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `user_id`, `tracking_no`, `fullname`, `email`, `phone`, `pincode`, `address`, `status_message`, `payment_mode`, `payment_id`, `created_at`, `updated_at`) VALUES
-(1, 2, 'LC-DoPwjRYA5b', 'Admin', 'admin1@gmail.com', '1111111111', '500000', 'shesssssssh', 'completed', 'COD', NULL, '2023-03-05 12:27:20', '2023-03-05 12:27:20'),
-(2, 2, 'LC-F93PHIm7Cd', 'Admin', 'admin1@gmail.com', '22222222222', '123123', '123123123', 'In progress', 'COD', NULL, '2023-03-05 12:30:00', '2023-03-05 12:30:00'),
-(3, 2, 'LC-LHA3w1Jgqh', 'Admin', 'admin1@gmail.com', '11111111111', '500000', 'aaaaaaaaaaa', 'pending', 'COD', NULL, '2023-03-07 12:46:17', '2023-03-07 06:35:17'),
-(4, 2, 'LC-0nMRUnLH0u', 'Admin', 'admin1@gmail.com', '11111111111', '111111', '11111111', 'In progress', 'COD', NULL, '2023-03-05 13:00:48', '2023-03-05 13:00:48'),
-(5, 1, 'LC-neORLXwUVn', 'tran duy loc', 'user1@gmail.com', '10397140665', '100000', 'Emilio Mitre 281', 'In progress', 'COD', NULL, '2023-03-14 01:17:38', '2023-03-14 01:17:38'),
-(6, 2, 'LC-irGZEHcqEF', 'Admin', 'admin1@gmail.com', '0397140665', '100000', 'Viet Tri Phu Tho', 'In progress', 'COD', NULL, '2023-04-02 15:09:26', '2023-04-02 15:09:26');
+INSERT INTO `orders` (`id`, `user_id`, `tracking_no`, `fullname`, `email`, `phone`, `pincode`, `address`, `status_message`, `payment_mode`, `payment_id`, `created_at`, `updated_at`, `total`) VALUES
+(1, 2, 'LC-DoPwjRYA5b', 'Admin', 'admin1@gmail.com', '1111111111', '500000', 'shesssssssh', 'completed', 'COD', NULL, '2023-03-05 12:27:20', '2023-03-05 12:27:20', 600),
+(2, 2, 'LC-F93PHIm7Cd', 'Admin', 'admin1@gmail.com', '22222222222', '123123', '123123123', 'In progress', 'COD', NULL, '2023-03-05 12:30:00', '2023-03-05 12:30:00', 420),
+(3, 2, 'LC-LHA3w1Jgqh', 'Admin', 'admin1@gmail.com', '11111111111', '500000', 'aaaaaaaaaaa', 'pending', 'COD', NULL, '2023-03-07 12:46:17', '2023-03-07 06:35:17', 840),
+(4, 2, 'LC-0nMRUnLH0u', 'Admin', 'admin1@gmail.com', '11111111111', '111111', '11111111', 'In progress', 'COD', NULL, '2023-03-05 13:00:48', '2023-03-05 13:00:48', 140),
+(5, 1, 'LC-neORLXwUVn', 'tran duy loc', 'user1@gmail.com', '10397140665', '100000', 'Emilio Mitre 281', 'In progress', 'COD', NULL, '2023-03-14 01:17:38', '2023-03-14 01:17:38', 140),
+(6, 2, 'LC-irGZEHcqEF', 'Admin', 'admin1@gmail.com', '0397140665', '100000', 'Viet Tri Phu Tho', 'completed', 'COD', NULL, '2023-04-02 15:09:26', '2023-04-02 15:09:26', 72);
 
 -- --------------------------------------------------------
 
@@ -702,7 +704,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `orders`

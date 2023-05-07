@@ -78,7 +78,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="">
+            <a class="nav-link" href="{{ url('admin/statistic') }}">
                 <i class="mdi mdi-chart-areaspline menu-icon"></i>
                 <span class="menu-title">Statistics</span>
             </a>
