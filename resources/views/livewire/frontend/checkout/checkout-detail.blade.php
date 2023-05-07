@@ -105,8 +105,6 @@
                                                 aria-labelledby="onlinePayment-tab" tabindex="0">
                                                 <h6 class="text-primary">Online Payment Method</h6>
                                                 <hr />
-                                                <button wire:loading.attr="disabled" type="button" class="btn btn-warning mb-3" style="height: 55px; width: 750px; font-weight: bold; font-size: 1.3rem; color: rgb(247, 38, 38)">VN<span style="color: rgb(62, 62, 243); font-size: inherit; font-weight: inherit;">PAY</span>
-                                                </button>
                                                 <div>
                                                     <div id="paypal-button-container"></div>
                                                 </div>
@@ -129,7 +127,7 @@
     </div>
 </div>
 @push('scripts')
-    <script src="https://www.paypal.com/sdk/js?client-id=AdSxWjTC6BIHwAbrlGkenIs04PgyGiLwjen0b4zRObLr_THoFl13HTDSFAawkBNQpa79WSdqWlJ9tPzC&currency=USD">
+    <script src="https://www.paypal.com/sdk/js?client-id=AU2W9rN2X4mt1pPSTWje14DX5VDtRk6sUpJK3oTdrx6279fwJjlEXMe4j1LuIEpcK7a4K6Tm9JI_Wo1p&currency=USD">
     </script>
     <script>
         paypal.Buttons({
