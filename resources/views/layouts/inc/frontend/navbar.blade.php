@@ -109,7 +109,7 @@
                         <a class="nav-link" style="font-weight: 500;  " href="{{ url('featured-products') }}">Featured Products</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" style="font-weight: 500;  " href="#">News</a>
+                        <a class="nav-link" style="font-weight: 500;  " href="{{ url('news') }}">News</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" style="font-weight: 500;  " href="#">Supports</a>

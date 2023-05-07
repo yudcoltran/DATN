@@ -41,6 +41,9 @@ Route::get('/new-arrivals', [FrontendController::class, 'newArrival']);
 Route::get('/featured-products', [FrontendController::class, 'featuredProducts']);
 Route::get('/trending-products', [FrontendController::class, 'trendingProducts']);
 Route::get('search', [FrontendController::class, 'searchProducts']);
+Route::get('/news', function() {
+    return view('frontend.news.index');
+});
 
 Route::middleware(['auth'])->group(function () {
     Route::get('wishlist', [WishlistController::class, 'index'])->name('wishlist');
