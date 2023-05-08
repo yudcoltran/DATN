@@ -1,5 +1,5 @@
 <div class="card-body show-user">
-    <table class="table table-bordered">
+    <table class="table">
         <thead>
             <tr>
                 <th>ID</th>

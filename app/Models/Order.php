@@ -22,6 +22,7 @@ class Order extends Model
         'status_message',
         'payment_mode',
         'payment_id',
+        'total'
     ];
 
     public function orderItems() {

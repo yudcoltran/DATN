@@ -29,7 +29,7 @@
             @endif
 
             <div class="card">
-                <div class="cart-header mx-4 mt-4">
+                <div class="mx-4 mt-4">
                     <h3 class="align-middle">Category
                         <a href="{{ url('admin/category/create') }}" class="btn btn-primary float-end text-white">
                             Add Category
@@ -37,7 +37,7 @@
                     </h3>
                 </div>
                 <div class="card-body">
-                    <table class="table table-bordered table-striped">
+                    <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -53,19 +53,19 @@
                                     <td>{{ $category->name }}</td>
                                     @if ($category->status)
                                         <td>
-                                            <div class="btn btn-danger disabled">Not Ready</div>
+                                            <div class="btn btn-danger disabled text-white">Not Ready</div>
                                         </td>
                                     @else
                                         <td>
-                                            <div class="btn btn-success disabled">Ready</div>
+                                            <div class="btn btn-success disabled text-white">Ready</div>
                                         </td>
                                     @endif
                                     <td>
                                         <a href="{{ url('admin/category/' . $category->id . '/edit') }}"
-                                            class="btn btn-success">Edit</a>
+                                            class="btn btn-success text-white">Edit</a>
                                         <a href="#" wire:click="deleteCategory({{ $category->id }})"
                                             data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                            class="btn btn-danger">Delete</a>
+                                            class="btn btn-danger text-white">Delete</a>
                                     </td>
                                 </tr>
                             @endforeach

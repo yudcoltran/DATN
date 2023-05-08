@@ -16,7 +16,7 @@
                     </h3>
                 </div>
                 <div class="card-body">
-                    <table class="table table-bordered">
+                    <table class="table">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -39,16 +39,16 @@
                                     </td>
                                     @if ($slider->status)
                                         <td>
-                                            <div class="btn btn-danger disabled">Not Ready</div>
+                                            <div class="btn btn-danger disabled text-white">Not Ready</div>
                                         </td>
                                     @else
                                         <td>
-                                            <div class="btn btn-success disabled">Ready</div>
+                                            <div class="btn btn-success disabled text-white">Ready</div>
                                         </td>
                                     @endif
                                     <td>
-                                        <a href="{{ url('admin/sliders/'.$slider->id.'/edit') }}" class="btn btn-success">Edit</a>
-                                        <a href="" class="btn btn-danger delete-slider" data-id="{{ $slider->id }}"
+                                        <a href="{{ url('admin/sliders/'.$slider->id.'/edit') }}" class="btn btn-success text-white">Edit</a>
+                                        <a href="" class="btn btn-danger delete-slider text-white" data-id="{{ $slider->id }}"
                                         data-title="{{ $slider->title }}"
                                         >
                                             Delete

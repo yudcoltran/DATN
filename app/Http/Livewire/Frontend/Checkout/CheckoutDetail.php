@@ -13,7 +13,7 @@ use Livewire\Component;
 
 class CheckoutDetail extends Component
 {
-    public $carts, $totalProductAmount = 0;
+    public $carts, $total = 0, $totalProductAmount = 0;
     public $fullname, $email, $phone, $pincode, $address, $payment_method = NULL, $payment_id = NULL;
 
     protected $listeners = [
@@ -56,9 +56,19 @@ class CheckoutDetail extends Component
             'address'=>'required|string|max:255'
         ];
     }
-
+    public function totalProductAmount(){
+        $this->totalProductAmount = 0;
+        $this->carts = Cart::where('user_id', auth()->user()->id)->get();
+        foreach($this->carts as $cartItem) {
+            $this->totalProductAmount += $cartItem->product->original_price * $cartItem->quantity;
+        }
+        return $this->totalProductAmount;
+    }
     public function placeOrder(){
         $this->validate();
+        foreach($this->carts as $cartItem) {
+            $this->total += $cartItem->product->original_price * $cartItem->quantity;
+        }
         $order = Order::create([
             'user_id' => auth()->user()->id,
             'tracking_no' => 'LC-'.Str::random(10),
@@ -70,6 +80,7 @@ class CheckoutDetail extends Component
             'status_message' => 'In progress',
             'payment_mode' => $this->payment_method,
             'payment_id' => $this->payment_id,
+            'total' => $this->total,
         ]);
         foreach($this->carts as $cartItem) {
             $orderItems = Orderitem::create([
@@ -103,22 +114,15 @@ class CheckoutDetail extends Component
             ]);
         }
     }
-    public function totalProductAmount(){
-        $this->totalProductAmount = 0;
-        $this->carts = Cart::where('user_id', auth()->user()->id)->get();
-        foreach($this->carts as $cartItem) {
-            $this->totalProductAmount += $cartItem->product->original_price * $cartItem->quantity;
-        }
-        return $this->totalProductAmount;
-    }
+
 
     public function render()
     {
         $this->fullname = auth()->user()->name;
         $this->email = auth()->user()->email;
-        $this->phone = auth()->user()->userDetail->phone;
-        $this->pincode = auth()->user()->userDetail->zip_code;
-        $this->address = auth()->user()->userDetail->address;
+        $this->phone = auth()->user()->userDetail->phone ?? null;
+        $this->pincode = auth()->user()->userDetail->zip_code ?? null ;
+        $this->address = auth()->user()->userDetail->address ?? null;
         $this->totalProductAmount = $this->totalProductAmount();
         return view('livewire.frontend.checkout.checkout-detail' , [
             'totalProductAmount' => $this->totalProductAmount,

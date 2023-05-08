@@ -11,7 +11,4 @@ class CheckoutController extends Controller
 
         return view('frontend.checkout.index');
     }
-    public function vnpayment(){
-        
-    }
 }

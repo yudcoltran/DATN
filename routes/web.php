@@ -52,7 +52,7 @@ Route::middleware(['auth'])->group(function () {
     // Route::get('/vn_payment', [CheckoutController::class, 'vnpayment']);
     Route::get('orders', [OrderController::class, 'index'])->name('orders');
     Route::get('orders/{orderId}', [OrderController::class, 'show']);
-    Route::get('profile', [App\Http\Controllers\Frontend\UserController::class, 'index']);
+    Route::get('profile', [App\Http\Controllers\Frontend\UserController::class, 'index'])->name('my-profile');
     Route::post('profile', [App\Http\Controllers\Frontend\UserController::class, 'updateUserDetails']);
     Route::get('change-password', [App\Http\Controllers\Frontend\UserController::class, 'password']);
     Route::post('change-password', [App\Http\Controllers\Frontend\UserController::class, 'changePassword']);

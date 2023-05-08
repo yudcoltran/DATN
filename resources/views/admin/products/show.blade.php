@@ -1,5 +1,5 @@
 <div class="card-body show-product">
-    <table class="table table-bordered">
+    <table class="table">
         <thead>
             <tr>
                 <th>ID</th>
@@ -26,11 +26,11 @@
                     <td>{{ $product->quantity }}</td>
                     @if ($product->status)
                         <td>
-                            <div class="btn btn-danger disabled">Not Ready</div>
+                            <div class="btn btn-danger disabled text-white">Not Ready</div>
                         </td>
                     @else
                         <td>
-                            <div class="btn btn-success disabled">Ready</div>
+                            <div class="btn btn-success disabled text-white">Ready</div>
                         </td>
                     @endif
                     <td class="d-flex align-items-center justify-content-center">
@@ -38,8 +38,8 @@
                             style="height: 120px; width: 120px; object-fit: cover; overflow: hidden; border-radius: 0;">
                     </td>
                     <td>
-                        <a href="{{ url('admin/products/' . $product->id . '/edit') }}" class="btn btn-primary">Edit</a>
-                        <a href="" class="btn btn-danger delete_product" data-id="{{ $product->id }}"
+                        <a href="{{ url('admin/products/' . $product->id . '/edit') }}" class="btn btn-primary text-white">Edit</a>
+                        <a href="" class="btn btn-danger delete_product text-white" data-id="{{ $product->id }}"
                             data-name="{{ $product->name }}">
                             Delete
                         </a>

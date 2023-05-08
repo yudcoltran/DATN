@@ -15,49 +15,65 @@ class ChartController extends Controller
         return view('admin.chart.index');
     }
 
-    public function chart() {
-        $now = Carbon::now()->year;
-        $datas = Order::select([
-            DB::raw('MONTH(created_at) as month'),
-            // DB::raw('YEAR(created_at) as year'),
+    public function chart(Request $request) {
+        $group = $request->query('group', 'month');
+        $query = Order::select([
             DB::raw('SUM(total) as total'),
             DB::raw('COUNT(*) as count'),
         ])
         ->where('status_message', 'completed')
-        ->whereYear('created_at', $now)
         ->groupBy([
-            'month'
+            'label'
         ])
-        ->orderBy('month')
-        ->get();
-        $labels = [
-            1 => 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December',
-        ];
-        $total = $count = [];
+        ->orderBy('label');
+        switch($group) {
+            case 'day':
+                $query->addSelect(DB::raw('DATE(created_at) as label')) ;
+                $query->whereDate('created_at', '>=', Carbon::now()->startOfMonth());
+                $query->whereDate('created_at', '<=', Carbon::now()->endOfMonth());
+                break;
+            case 'week':
+                $query->addSelect(DB::raw('DATE(created_at) as label')) ;
+                $query->whereDate('created_at', '>=', Carbon::now()->startOfWeek());
+                $query->whereDate('created_at', '<=', Carbon::now()->endOfWeek());
+                break;
+            case 'year':
+                $query->addSelect(DB::raw('YEAR(created_at) as label')) ;
+                $query->whereYear('created_at', '>=', Carbon::now()->subYears(2)->year);
+                $query->whereYear('created_at', '<=', Carbon::now()->addYears(2)->year);
+                break;
+            case 'month':
+                $query->addSelect(DB::raw('Month(created_at) as label')) ;
+                $query->whereDate('created_at', '>=', Carbon::now()->startOfYear());
+                $query->whereDate('created_at', '<=', Carbon::now()->endOfYear());
+                break;
+
+            default:
+
+        }
+        $datas = $query->get();
+        // $labels = [
+        //     1 => 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December',
+        // ];
+        $labels = $total = $count = [];
         foreach($datas as $data){
-            $total[$data->month] = $data->total;
-            $count[$data->month] = $data->count;
+            $labels[] = $data->label;
+            $total[$data->label] = $data->total;
+            $count[$data->label] = $data->count;
         }
-        foreach($labels as $month => $name) {
-            if(!array_key_exists($month, $total)) {
-                $total[$month] = 0;
-            }
-            if(!array_key_exists($month, $count)) {
-                $count[$month] = 0;
-            }
-        }
-        ksort($total);
-        ksort($count);
         return [
+            'group' => $group,
             'labels' => array_values($labels),
-            'dataset' => [
-                'label' => '$ Total Sales in '.$now,
-                'data' => array_values($total),
-            ],
-            [
-                'label' => 'Order #',
-                'data' => array_values($count),
-            ],
+            'datasets' => [
+                [
+                    'label' => 'Total Sales',
+                    'data' => array_values($total),
+                ],
+                [
+                    'label' => 'Order #',
+                    'data' => array_values($count),
+                ],
+            ]
         ];
     }
 }

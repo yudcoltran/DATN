@@ -25,7 +25,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('cart') }}">
                                 <i class="fa fa-shopping-cart position-relative" style="font-size: 1.2rem;">
-                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: .6rem;">
+                                    <span wire:ignore class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: .6rem;">
                                         <livewire:frontend.cart.cart-count/>
                                         <span class="visually-hidden">products</span>
                                     </span>
@@ -35,7 +35,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('wishlist') }}">
                                 <i class="fa fa-heart position-relative" style="font-size: 1.2rem;">
-                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: .6rem;"
+                                    <span wire:ignore class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: .6rem;"
                                     >
                                         <livewire:frontend.wishlist.wishlist-count/>
                                         <span class="visually-hidden">products</span>
@@ -62,7 +62,7 @@
                                     {{ Auth::user()->name }}
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('my-profile') }}"><i class="fa fa-user"></i> Profile</a></li>
                                     <li><a class="dropdown-item" href="{{ route('orders') }}"><i class="fa fa-list"></i> My Orders</a></li>
                                     <li><a class="dropdown-item" href="{{ route('wishlist') }}"><i class="fa fa-heart"></i> My Wishlist</a></li>
                                     <li><a class="dropdown-item" href="{{ route('cart') }}"><i class="fa fa-shopping-cart"></i> My Cart</a></li>

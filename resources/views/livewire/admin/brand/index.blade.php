@@ -8,17 +8,17 @@
                 </div>
             @endif
             <div class="card">
-                <div class="card-header">
-                    <h4>
+                <div class="bg-white mx-4 mt-5">
+                    <h3 class="align-middle">
                         Brands List
                         <a href="#" data-bs-toggle="modal" data-bs-target="#addBrandModal"
-                            class="btn btn-primary float-end">
+                            class="btn btn-primary float-end text-white">
                             Add Brand
                         </a>
-                    </h4>
+                    </h3>
                 </div>
                 <div class="card-body">
-                    <table class="table table-bordered table-striped">
+                    <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -37,11 +37,11 @@
                                     <td>{{ $brand->slug }}</td>
                                     @if ($brand->status)
                                         <td>
-                                            <div class="btn btn-danger disabled">Not Ready</div>
+                                            <div class="btn btn-danger disabled text-white">Not Ready</div>
                                         </td>
                                     @else
                                         <td>
-                                            <div class="btn btn-success disabled">Ready</div>
+                                            <div class="btn btn-success disabled text-white">Ready</div>
                                         </td>
                                     @endif
                                     @if ($brand->category)
@@ -52,12 +52,12 @@
                                     <td>
                                         <a href="#" wire:click="editBrand({{ $brand->id }})"
                                             data-bs-toggle="modal" data-bs-target="#updateBrandModal"
-                                            class="btn btn-success">
+                                            class="btn btn-success text-white">
                                             Edit
                                         </a>
                                         <a href="#" wire:click="deleteBrand({{ $brand->id }})"
                                             data-bs-toggle="modal" data-bs-target="#deleteBrandModal"
-                                            class="btn btn-danger">
+                                            class="btn btn-danger text-white">
                                             Delete
                                         </a>
                                     </td>
