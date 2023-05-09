@@ -52,9 +52,6 @@ class ChartController extends Controller
 
         }
         $datas = $query->get();
-        // $labels = [
-        //     1 => 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December',
-        // ];
         $labels = $total = $count = [];
         foreach($datas as $data){
             $labels[] = $data->label;
@@ -66,7 +63,7 @@ class ChartController extends Controller
             'labels' => array_values($labels),
             'datasets' => [
                 [
-                    'label' => 'Total Sales',
+                    'label' => 'Total Sales $',
                     'data' => array_values($total),
                 ],
                 [

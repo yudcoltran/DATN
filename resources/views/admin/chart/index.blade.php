@@ -18,28 +18,27 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
     <script>
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'line',
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
         function displayChart(group = 'month'){
             fetch("{{ url('admin/statistic/chart') }}?group=" + group)
-            .then(response => response.json())
-            .then(json => {
-                const ctx = document.getElementById('myChart');
-                new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: json.labels,
-                        datasets: json.datasets,
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
+                .then(response => response.json())
+                .then(json => {
+                    myChart.data.labels = json.labels;
+                    myChart.data.datasets = json.datasets;
+                    myChart.update();
                 });
-            })
         }
-        $('.btn-group.btn').on('click', function(e) {
+        $('.btn-group .btn').on('click', function(e) {
             e.preventDefault();
             displayChart($(this).data('group'));
         });
