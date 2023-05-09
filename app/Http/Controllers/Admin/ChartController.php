@@ -22,6 +22,7 @@ class ChartController extends Controller
             DB::raw('COUNT(*) as count'),
         ])
         ->where('status_message', 'completed')
+        ->orWhere('payment_id', '<>', null)
         ->groupBy([
             'label'
         ])
