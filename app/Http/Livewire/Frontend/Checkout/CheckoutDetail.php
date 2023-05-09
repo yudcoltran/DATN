@@ -28,11 +28,16 @@ class CheckoutDetail extends Component
         if($order) {
             Cart::where('user_id', auth()->user()->id)->delete();
             session()->flash('message', 'Order successfully');
+            $this->dispatchBrowserEvent('message', [
+                'text'=>'Order Placed Successfully',
+                'type'=>'success',
+                'status' => 200
+            ]);
             try{
                 $orderr = Order::findOrFail($order->id);
                 Mail::to("$orderr->email")->send(new PlaceOrderMailable($orderr));
             }catch(Exception $e){
-                //
+
             }
             return redirect()->to('thank-you');
         }else {
@@ -114,7 +119,6 @@ class CheckoutDetail extends Component
             ]);
         }
     }
-
 
     public function render()
     {

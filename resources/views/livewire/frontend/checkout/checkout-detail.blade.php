@@ -127,12 +127,12 @@
     </div>
 </div>
 @push('scripts')
-    <script src="https://www.paypal.com/sdk/js?client-id=AU2W9rN2X4mt1pPSTWje14DX5VDtRk6sUpJK3oTdrx6279fwJjlEXMe4j1LuIEpcK7a4K6Tm9JI_Wo1p&currency=USD">
+    <script src="https://www.paypal.com/sdk/js?client-id=AZlvai4Xpk-XC0p634oAhxyYjC6ryQhSNeQEqKCEy2_XPfl6_cNjbOWmc6ZeMkzOZ_ALHGLL8hoptbe1&currency=USD"></script>
     </script>
     <script>
         paypal.Buttons({
             // onClick is called when the button is clicked
-            onClick()  {
+            onClick: function()  {
                 // Show a validation error if the checkbox is not checked
                 if (!document.getElementById('fullname').value
                     || !document.getElementById('phone').value
@@ -155,21 +155,21 @@
             return action.order.create({
                 purchase_units: [{
                     amount: {
-                        value: "0.1"//"{{ $this->totalProductAmount }}"
+                        value: "0.01"//"{{ $this->totalProductAmount }}"
                     }
                 }]
             });
           },
           // Finalize the transaction on the server after payer approval
           onApprove(data, actions) {
-            return action.orders.capture().then((orderData) => {
+            return actions.order.capture().then(function(orderData) {
               // Successful capture! For dev/demo purposes:
               console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
               const transaction = orderData.purchase_units[0].payments.captures[0];
-                if(transaction.status == "COMPLETED") {
-                    Livewire.emit('transactionEmit', transaction.id)
-                }
-            //   alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
+            if(transaction.status == "COMPLETED") {
+                Livewire.emit('transactionEmit', transaction.id)
+            }
+                // alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
             });
           }
         }).render('#paypal-button-container');
